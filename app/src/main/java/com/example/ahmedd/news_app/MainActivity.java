@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tab_layout);
         toolbar = findViewById(R.id.toolbar);
         my_title = findViewById(R.id.my_title);
+        my_title.setText(R.string.source);
 
 
         tabLayout.setupWithViewPager(viewPager);
@@ -60,11 +61,34 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+                if (tab.getText().equals("Top Headlines")){
+                    my_title.setText(R.string.source);
+
+
+                }
+
+                else if (tab.getText().equals("Sources")){
+                    my_title.setText(R.string.top_headlines);
+
+
+                }
 
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+
+                if (tab.getText().equals("Sources")){
+                    my_title.setText(R.string.source);
+
+
+                }
+
+                else if (tab.getText().equals("Top Headlines")){
+                    my_title.setText(R.string.top_headlines);
+
+
+                }
 
             }
         });
