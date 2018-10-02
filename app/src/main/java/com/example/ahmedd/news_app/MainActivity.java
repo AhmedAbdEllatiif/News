@@ -10,14 +10,14 @@ import android.widget.TextView;
 
 import com.example.ahmedd.news_app.Adapters.PageAdapter;
 import com.example.ahmedd.news_app.Fragments.SourceFrgment;
-import com.example.ahmedd.news_app.Fragments.TopHeadLines;
+import com.example.ahmedd.news_app.Fragments.TopHeadLinesFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private Toolbar toolbar;
-    private TextView my_title;
+    public static TextView my_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tab_layout);
         toolbar = findViewById(R.id.toolbar);
         my_title = findViewById(R.id.my_title);
-        my_title.setText("Sources");
+
 
         tabLayout.setupWithViewPager(viewPager);
         setFragmentWithViewPager(viewPager);
@@ -43,13 +43,13 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getText().equals(R.string.source)){
+                if (tab.getText().equals("Sources")){
                     my_title.setText(R.string.source);
 
 
                 }
 
-                else if (tab.getText().equals(R.string.top_headlines)){
+                else if (tab.getText().equals("Top Headlines")){
                     my_title.setText(R.string.top_headlines);
 
 
@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
 
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         PageAdapter adapter = new PageAdapter(getSupportFragmentManager());
         adapter.AddFragmentPage(new SourceFrgment(),getString(R.string.source));
-        adapter.AddFragmentPage(new TopHeadLines(),getString(R.string.top_headlines));
+        adapter.AddFragmentPage(new TopHeadLinesFragment(),getString(R.string.top_headlines));
         viewPager.setAdapter(adapter);
     }
 }

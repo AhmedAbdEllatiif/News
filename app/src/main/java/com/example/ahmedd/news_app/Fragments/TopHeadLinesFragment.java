@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.ahmedd.news_app.API.APIManger;
-import com.example.ahmedd.news_app.API.Model.MainModel.AllMainSources;
-import com.example.ahmedd.news_app.API.Model.MainModel.MainSourceItem;
-import com.example.ahmedd.news_app.Adapters.SourcesNameAdapter;
+import com.example.ahmedd.news_app.API.Model.MainModel.TopHeadLines.Articles_THL;
+import com.example.ahmedd.news_app.API.Model.MainModel.TopHeadLines.Example_THL;
+import com.example.ahmedd.news_app.Adapters.TopHeadLineAdapter;
 import com.example.ahmedd.news_app.MainActivity;
 import com.example.ahmedd.news_app.R;
 
@@ -24,50 +24,45 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SourceFrgment extends Fragment {
+public class TopHeadLinesFragment extends Fragment {
 
-    private View view;
-    private SourcesNameAdapter adapter;
-    private List<MainSourceItem> sourceItems;
-    private LinearLayoutManager linearLayoutManager;
-    private RecyclerView recyclerView;
 
-    //api parameters
-    private final String apiKey = "d27e82d8021d4f08aeedc00704903264";
-    private final String country = "eg";
-    private final String en_language = "en";
-    private final String ar_language = "ar";
-
-    public SourceFrgment() {
+    public TopHeadLinesFragment() {
         // Required empty public constructor
     }
 
+    private List<Articles_THL> articleItems;
+    private RecyclerView recyclerView;
+    private TopHeadLineAdapter adapter;
+    private LinearLayoutManager linearLayoutManager;
+    private View view;
+    private final String apiKey = "d27e82d8021d4f08aeedc00704903264";
+    private final String eg_country = "eg";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view =  inflater.inflate(R.layout.fragment_top_head_lines, container, false);
+        recyclerView = view.findViewById(R.id.topHeadLine_recyclerView);
 
-        view =  inflater.inflate(R.layout.fragment_source, container, false);
-        recyclerView = view.findViewById(R.id.sourceName_recyclerView);
-        getApi(en_language,apiKey);
+        getApi(eg_country,apiKey);
+
         return view;
     }
 
     private void setAdapter(){
-        adapter = new SourcesNameAdapter(sourceItems);
+        adapter = new TopHeadLineAdapter(articleItems);
         linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-
         recyclerView.setAdapter(adapter);
-
     }
 
-    private void getApi(String language, String apiKey){
-
-        APIManger.getServices().allMainSources(language,apiKey)
-                .enqueue(new Callback<AllMainSources>() {
+    private void getApi(String country, String apiKey){
+        APIManger.getServices().getHeadLine(country,apiKey)
+                .enqueue(new Callback<Example_THL>() {
                     @Override
-                    public void onResponse(Call<AllMainSources> call, Response<AllMainSources> response) {
+                    public void onResponse(Call<Example_THL> call, Response<Example_THL> response) {
 
                         switch (response.code()){
                             case (200):
@@ -91,13 +86,13 @@ public class SourceFrgment extends Fragment {
                                 Log.e("Error 500", "500 Internal Server Error"); break;
                         }
 
-                       sourceItems = response.body().getSourceItem();
+                        articleItems =  response.body().getArticles();
                         setAdapter();
                     }
 
                     @Override
-                    public void onFailure(Call<AllMainSources> call, Throwable t) {
-                        Toast.makeText(getActivity().getApplicationContext(), "Error connection", Toast.LENGTH_SHORT).show();
+                    public void onFailure(Call<Example_THL> call, Throwable t) {
+                        Toast.makeText(getActivity().getApplicationContext(), "Connection Error", Toast.LENGTH_SHORT).show();
                     }
                 });
 

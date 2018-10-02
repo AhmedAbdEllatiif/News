@@ -5,4 +5,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="source">Sources</string>
     <string name="top_headlines">Top HeadLines</string>
+    <string name="topheadline">Top Head Line</string>
 </resources>
