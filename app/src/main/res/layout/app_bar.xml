@@ -4,7 +4,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".MainActivity"
         >
 
     <android.support.design.widget.AppBarLayout
@@ -53,9 +54,23 @@
                  </android.support.constraint.ConstraintLayout>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabGravity="fill"
+            android:background="@color/colorPrimary"
+            app:tabIndicatorColor="@color/tabs_color"
+            app:tabSelectedTextColor="@color/tabs_color"
+            app:tabTextColor="@color/tabs_txt_color"
+
+            />
+
     </android.support.design.widget.AppBarLayout>
 
-<include layout="@layout/activity_main"/>
+
+
 
 </android.support.design.widget.CoordinatorLayout>
 

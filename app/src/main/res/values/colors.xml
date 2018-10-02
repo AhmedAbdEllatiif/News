@@ -5,6 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="white">#ffffff</color>
     <color name="black">#000</color>
-
+    <color name="tabs_txt_color">#96999b</color>
 
 </resources>
