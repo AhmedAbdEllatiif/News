@@ -23,7 +23,7 @@ public class AllMainSources {
     }
 
     public List<MainSourceItem> getSourceItem() {
-        return getSourceItem();
+        return sourcesItems;
     }
 
     public void setSources(List<MainSourceItem> sources) {
