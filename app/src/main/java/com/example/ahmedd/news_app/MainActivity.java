@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.example.ahmedd.news_app.Adapters.PageAdapter;
 import com.example.ahmedd.news_app.Fragments.SourceFrgment;
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private Toolbar toolbar;
+    private TextView my_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.sourceViewPager);
         tabLayout = findViewById(R.id.tab_layout);
         toolbar = findViewById(R.id.toolbar);
+        my_title = findViewById(R.id.my_title);
+        my_title.setText("Sources");
 
         tabLayout.setupWithViewPager(viewPager);
         setFragmentWithViewPager(viewPager);
@@ -34,6 +38,36 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getText().equals(R.string.source)){
+                    my_title.setText(R.string.source);
+
+
+                }
+
+                else if (tab.getText().equals(R.string.top_headlines)){
+                    my_title.setText(R.string.top_headlines);
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
 
     }
