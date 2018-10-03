@@ -17,6 +17,7 @@ import com.example.ahmedd.news_app.API.APIManger;
 import com.example.ahmedd.news_app.API.Model.MainModel.AllMainSources;
 import com.example.ahmedd.news_app.API.Model.MainModel.MainSourceItem;
 import com.example.ahmedd.news_app.Adapters.SourcesNameAdapter;
+import com.example.ahmedd.news_app.BaseActivities.BaseFragment;
 import com.example.ahmedd.news_app.MainActivity;
 import com.example.ahmedd.news_app.News;
 import com.example.ahmedd.news_app.R;
@@ -27,7 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SourceFrgment extends Fragment {
+public class SourceFrgment extends BaseFragment {
 
     private View view;
     private SourcesNameAdapter adapter;
@@ -121,7 +122,7 @@ public class SourceFrgment extends Fragment {
 
                     @Override
                     public void onFailure(Call<AllMainSources> call, Throwable t) {
-                        Toast.makeText(getActivity().getApplicationContext(), "Error connection", Toast.LENGTH_SHORT).show();
+                        showMessage("Error","Connction Failed");
                     }
                 });
 

@@ -16,6 +16,7 @@ import com.example.ahmedd.news_app.API.APIManger;
 import com.example.ahmedd.news_app.API.Model.MainModel.NewsModel.ArticleNews;
 import com.example.ahmedd.news_app.API.Model.MainModel.NewsModel.ExampleNews;
 import com.example.ahmedd.news_app.Adapters.AllNewsAdapter;
+import com.example.ahmedd.news_app.BaseActivities.BaseFragment;
 import com.example.ahmedd.news_app.News;
 import com.example.ahmedd.news_app.R;
 
@@ -28,15 +29,18 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Weather extends Fragment {
+public class Weather extends BaseFragment {
     private List<ArticleNews> articleItems;
     private RecyclerView recyclerView;
     private AllNewsAdapter adapter;
     private LinearLayoutManager linearLayoutManager;
     private View view;
+
+    //API
     private final String apiKey = "d27e82d8021d4f08aeedc00704903264";
     private final String serach = "+weather";
-
+    private String content;
+    private String URL;
     String sourceID = News.sourceID;
 
     public Weather() {
@@ -79,7 +83,7 @@ public class Weather extends Fragment {
         APIManger.getServices().getAllNews(searchType,id,apiKey)
                 .enqueue(new Callback<ExampleNews>() {
                     @Override
-                    public void onResponse(Call<ExampleNews> call, Response<ExampleNews> response) {
+                    public void onResponse(Call<ExampleNews> call, final Response<ExampleNews> response) {
 
                         switch (response.code()){
                             case (200):
@@ -105,11 +109,27 @@ public class Weather extends Fragment {
 
                         articleItems =  response.body().getArticles();
                         setAdapter();
+
+                        adapter.setOnCardClickListener(new AllNewsAdapter.onItemClickListener() {
+                            @Override
+                            public void onClick(int position, ArticleNews articlItems) {
+
+                                URL = response.body().getArticles().get(position).getUrlToImage();
+                                content = response.body().getArticles().get(position).getContent();
+
+                                ContentNews_dialogefragment contentNewsDialogefragment = new ContentNews_dialogefragment();
+                                contentNewsDialogefragment.setContent(content);
+                                contentNewsDialogefragment.setImgURl(URL);
+
+                                contentNewsDialogefragment.show(getChildFragmentManager(),"Dialoge");
+                            }
+                        });
+
                     }
 
                     @Override
                     public void onFailure(Call<ExampleNews> call, Throwable t) {
-                        Toast.makeText(getActivity().getApplicationContext(), "Connection Error", Toast.LENGTH_SHORT).show();
+                        showMessage("Error","Connction Failed");
                     }
                 });
 

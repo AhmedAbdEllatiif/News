@@ -15,6 +15,7 @@ import com.example.ahmedd.news_app.API.APIManger;
 import com.example.ahmedd.news_app.API.Model.MainModel.TopHeadLines.Articles_THL;
 import com.example.ahmedd.news_app.API.Model.MainModel.TopHeadLines.Example_THL;
 import com.example.ahmedd.news_app.Adapters.TopHeadLineAdapter;
+import com.example.ahmedd.news_app.BaseActivities.BaseFragment;
 import com.example.ahmedd.news_app.MainActivity;
 import com.example.ahmedd.news_app.R;
 
@@ -24,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TopHeadLinesFragment extends Fragment {
+public class TopHeadLinesFragment extends BaseFragment {
 
 
     public TopHeadLinesFragment() {
@@ -36,6 +37,8 @@ public class TopHeadLinesFragment extends Fragment {
     private TopHeadLineAdapter adapter;
     private LinearLayoutManager linearLayoutManager;
     private View view;
+
+    //API
     private final String apiKey = "d27e82d8021d4f08aeedc00704903264";
     private final String eg_country = "eg";
 
@@ -92,7 +95,7 @@ public class TopHeadLinesFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<Example_THL> call, Throwable t) {
-                        Toast.makeText(getActivity().getApplicationContext(), "Connection Error", Toast.LENGTH_SHORT).show();
+                        showMessage("Error","Connction Failed");
                     }
                 });
 

@@ -4,7 +4,6 @@ package com.example.ahmedd.news_app.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,6 +16,7 @@ import com.example.ahmedd.news_app.API.APIManger;
 import com.example.ahmedd.news_app.API.Model.MainModel.NewsModel.ArticleNews;
 import com.example.ahmedd.news_app.API.Model.MainModel.NewsModel.ExampleNews;
 import com.example.ahmedd.news_app.Adapters.AllNewsAdapter;
+import com.example.ahmedd.news_app.BaseActivities.BaseFragment;
 import com.example.ahmedd.news_app.News;
 import com.example.ahmedd.news_app.R;
 
@@ -29,15 +29,20 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Urgent extends Fragment {
+public class Urgent extends BaseFragment {
 
     private List<ArticleNews> articleItems;
     private RecyclerView recyclerView;
     private AllNewsAdapter adapter;
     private LinearLayoutManager linearLayoutManager;
     private View view;
+
+
+    //API
     private final String apiKey = "d27e82d8021d4f08aeedc00704903264";
     private final String serach = "+urgent";
+    private String content;
+    private String URL;
     String sourceID = News.sourceID;
 
 
@@ -115,23 +120,22 @@ public class Urgent extends Fragment {
                         adapter.setOnCardClickListener(new AllNewsAdapter.onItemClickListener() {
                             @Override
                             public void onClick(int position, ArticleNews articlItems) {
-                            Fragment fragment = new ContentNews();
-                            News.frameLayout.setVisibility(View.VISIBLE);
 
-                            ContentNews.imgURl = response.body().getArticles().get(position).getUrlToImage();
-                            ContentNews.content = response.body().getArticles().get(position).getContent();
+                               URL = response.body().getArticles().get(position).getUrlToImage();
+                               content = response.body().getArticles().get(position).getContent();
 
-                            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                            transaction.replace(R.id.container_news,fragment); // give your fragment container id in first parameter
-                            //transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-                            transaction.commit();
+                                ContentNews_dialogefragment contentNewsDialogefragment = new ContentNews_dialogefragment();
+                                contentNewsDialogefragment.setContent(content);
+                                contentNewsDialogefragment.setImgURl(URL);
+
+                                contentNewsDialogefragment.show(getChildFragmentManager(),"Dialoge");
                             }
                         });
                     }
 
                     @Override
                     public void onFailure(Call<ExampleNews> call, Throwable t) {
-                        Toast.makeText(getActivity().getApplicationContext(), "Connection Error", Toast.LENGTH_SHORT).show();
+                        showMessage("Error","Connction Failed");
                     }
                 });
 

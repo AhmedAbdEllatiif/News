@@ -9,10 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.example.ahmedd.news_app.Adapters.PageAdapter;
+import com.example.ahmedd.news_app.BaseActivities.BaseActivity;
 import com.example.ahmedd.news_app.Fragments.SourceFrgment;
 import com.example.ahmedd.news_app.Fragments.TopHeadLinesFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -80,19 +81,14 @@ public class MainActivity extends AppCompatActivity {
 
                 if (tab.getText().equals("Sources")){
                     my_title.setText(R.string.source);
-
-
                 }
 
                 else if (tab.getText().equals("Top Headlines")){
                     my_title.setText(R.string.top_headlines);
-
-
                 }
 
             }
         });
-
     }
 
 

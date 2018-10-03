@@ -9,12 +9,13 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.ahmedd.news_app.Adapters.PageAdapter;
+import com.example.ahmedd.news_app.BaseActivities.BaseActivity;
 import com.example.ahmedd.news_app.Fragments.NewsOFSourceFragment;
 import com.example.ahmedd.news_app.Fragments.Sports;
 import com.example.ahmedd.news_app.Fragments.Urgent;
 import com.example.ahmedd.news_app.Fragments.Weather;
 
-public class News extends AppCompatActivity {
+public class News extends BaseActivity {
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -34,53 +35,12 @@ public class News extends AppCompatActivity {
         viewPager = findViewById(R.id.News_viewPager);
         tabLayout = findViewById(R.id.tab_layout_news);
         title = findViewById(R.id.my_title_news);
-       // title.setText(R.string.urgent);
+        title.setText(R.string.urgent);
 
         tabLayout.setupWithViewPager(viewPager);
         setFragmentWithViewPager(viewPager);
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
 
 
-
-                if (tab.getText().equals(R.string.urgent)){
-                    title.setText(R.string.urgent);
-                }
-                else if (tab.getText().equals(R.string.sports)){
-                    title.setText(R.string.sports);
-                }
-                else if (tab.getText().equals(R.string.weather)){
-                    title.setText(R.string.weather);
-                }  else if (tab.getText().equals(R.string.news)){
-                    title.setText(R.string.news);
-                }
-
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                if (tab.getText().equals(R.string.urgent)){
-                    title.setText(R.string.urgent);
-                }
-                else if (tab.getText().equals(R.string.sports)){
-                    title.setText(R.string.sports);
-                }
-                else if (tab.getText().equals(R.string.weather)){
-                    title.setText(R.string.weather);
-                }  else if (tab.getText().equals(R.string.news)){
-                    title.setText(R.string.news);
-                }
-
-
-            }
-        });
 
 
         setSupportActionBar(toolbar);
@@ -88,7 +48,46 @@ public class News extends AppCompatActivity {
 
         sourceID = getIntent().getStringExtra("id");
 
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
 
+                if (tab.getText().equals("Urgent")){
+                    title.setText(R.string.urgent);
+                }
+                else if (tab.getText().equals("Sports")){
+                    title.setText(R.string.sports);
+                }
+                else if (tab.getText().equals("Weather")){
+                    title.setText(R.string.weather);
+                }  else if (tab.getText().equals("News")){
+                    title.setText(R.string.news);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                if (tab.getText().equals("Urgent")){
+                    title.setText(R.string.urgent);
+                }
+                else if (tab.getText().equals("Sports")){
+                    title.setText(R.string.sports);
+                }
+                else if (tab.getText().equals("Weather")){
+                    title.setText(R.string.weather);
+                }  else if (tab.getText().equals("News")){
+                    title.setText(R.string.news);
+                }
+
+            }
+        });
 
 
     }
