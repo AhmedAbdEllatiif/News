@@ -1,6 +1,7 @@
 package com.example.ahmedd.news_app.API;
 
 import com.example.ahmedd.news_app.API.Model.MainModel.AllMainSources;
+import com.example.ahmedd.news_app.API.Model.MainModel.NewsModel.ExampleNews;
 import com.example.ahmedd.news_app.API.Model.MainModel.TopHeadLines.Example_THL;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -17,6 +18,11 @@ public interface Services {
 
     @GET("top-headlines")
     Call<Example_THL> getHeadLine(@Query("country") String country,
+                                  @Query("apiKey") String apiKey
+                                  );
+
+    @GET("everything")
+    Call<ExampleNews> getAllNews(@Query("q") String serchAll,@Query("sources") String id,
                                   @Query("apiKey") String apiKey
                                   );
 

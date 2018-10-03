@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setFragmentWithViewPager(viewPager);
 
-       setSupportActionBar(toolbar);
-       getSupportActionBar();
+        setSupportActionBar(toolbar);
+        getSupportActionBar();
 
 
 

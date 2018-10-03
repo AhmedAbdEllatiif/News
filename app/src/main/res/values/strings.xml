@@ -6,4 +6,10 @@
     <string name="source">Sources</string>
     <string name="top_headlines">Top HeadLines</string>
     <string name="topheadline">Top Head Line</string>
+    <string name="title">Title</string>
+    <string name="discription">Discription</string>
+    <string name="sports">Sports</string>
+    <string name="weather">Weather</string>
+    <string name="urgent">Urgent</string>
+    <string name="news">News</string>
 </resources>
